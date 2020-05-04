@@ -1,0 +1,13 @@
+{% extends 'admin/base.html' %}
+
+{% load static %}
+
+{% block branding %}
+<h1 id="head">
+    <img src="{% static 'logo.png' %}" width="50" height="50" alt="DJ REAL ESTATE">DJ REAL ESTATE
+</h1>
+{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'css/custom_admin.css' %}">
+{% endblock %}
