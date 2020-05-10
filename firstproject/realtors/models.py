@@ -9,6 +9,7 @@ class Realtor(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=200)
     message = models.CharField(max_length=200)
+    is_mvp = models.BooleanField(default=False)
     contact_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
