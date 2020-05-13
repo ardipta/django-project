@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from listings.models import Listing
 from realtors.models import Realtor
+from listings.model_choices import *
 
 
 #  pages app views
@@ -10,7 +11,11 @@ from realtors.models import Realtor
 def index(request):
     latest = Listing.objects.order_by('-list_date')[:3]  # select * from listing order by list_date desc
     context = {
-        'latest': latest
+        'latest': latest,
+        'state_choices': state_choices,
+        'bedroom_choices': bedroom_choices,
+        'price_choices': price_choices
+
     }
 
     return render(request, 'pages/index.html', context)

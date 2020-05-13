@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 from .models import Listing
+from .model_choices import *
 
 
 #  listings app views
@@ -33,4 +34,15 @@ def listing(request, listing_id):
 
 
 def search(request):
-    return render(request, 'listings/search.html')
+    method_dict = request.GET.copy()
+    keywords = method_dict.get('keywords')
+    city = method_dict.get('city')
+    context = {
+        'state_choices': state_choices,
+        'bedroom_choices': bedroom_choices,
+        'price_choices': price_choices,
+        'method_dict': method_dict,
+
+    }
+
+    return render(request, 'listings/search.html', context)
