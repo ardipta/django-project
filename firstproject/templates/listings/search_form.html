@@ -4,18 +4,12 @@
   <div class="form-row">
     <div class="col-md-4 mb-3">
       <label class="sr-only">Keywords</label>
-      <input type="text" name="keywords" class="form-control" placeholder="Keyword (Pool, Garage, etc)"
-      {% if method_dict.keywords %}
-      value="{{ method_dict.keywords }}"
-      {% endif %}>
+      <input type="text" name="keywords" class="form-control" placeholder="Keyword (Pool, Garage, etc)" value="{{ method_dict.keywords }}" >
     </div>
 
     <div class="col-md-4 mb-3">
       <label class="sr-only">City</label>
-      <input type="text" name="city" class="form-control" placeholder="City"
-      {% if method_dict.city %}
-      value="{{ method_dict.city }}"
-      {% endif %}>
+      <input type="text" name="city" class="form-control" placeholder="City" value="{{ method_dict.city }}">
     </div>
 
     <div class="col-md-4 mb-3">
@@ -23,7 +17,11 @@
       <select name="state" class="form-control">
         <option selected="true" disabled="disabled" >Division (All)</option>
           {% for key, value in state_choices.items %}
-            <option value="{{ key }}">{{ value }}</option>
+            <option value="{{ key }}"
+                {% if key == method_dict.state %}
+                    selected
+                {% endif %}
+            >{{ value }}</option>
           {% endfor %}
       </select>
     </div>
@@ -35,7 +33,11 @@
       <select name="bedrooms" class="form-control">
         <option selected="true" disabled="disabled">Bedrooms (All)</option>
           {% for key, value in bedroom_choices.items %}
-            <option value="{{ key }}">{{ value }}</option>
+            <option value="{{ key }}"
+                {% if key == method_dict.bedrooms %}
+                    selected
+                {% endif %}
+            >{{ value }}</option>
           {% endfor %}
       </select>
     </div>
@@ -43,7 +45,11 @@
       <select name="price" class="form-control" id="type">
         <option selected="true" disabled="disabled">Max Price (Any)</option>
           {% for key, value in price_choices.items %}
-            <option value="{{ key }}">{{ value | intcomma }} </option>
+            <option value="{{ key }}"
+                {% if key == method_dict.price %}
+                    selected
+                {% endif %}
+            >{{ value | intcomma }} </option>
           {% endfor %}
       </select>
     </div>

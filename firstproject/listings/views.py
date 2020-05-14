@@ -35,14 +35,38 @@ def listing(request, listing_id):
 
 def search(request):
     method_dict = request.GET.copy()
-    keywords = method_dict.get('keywords')
-    city = method_dict.get('city')
+    keywords = method_dict.get('keywords') or None
+    city = method_dict.get('city') or None
+    print(keywords, city)
+    listing_list = Listing.objects.all()
+
+    if keywords is not None:
+        keyword = method_dict['keywords']
+        # listing_list = listing_list.filter(desc__iexact=keyword)  # django == DJANGO
+        listing_list = listing_list.filter(desc__icontains=keyword)  # django == Django Web development
+
+    if city is not None:
+        cities = method_dict['city']
+        listing_list = listing_list.filter(city__iexact=cities)
+
+    if 'state' in method_dict:
+        states = method_dict['state']
+        listing_list = listing_list.filter(state__iexact=states)
+
+    if 'bedrooms' in method_dict:
+        bedroom = method_dict['bedrooms']
+        listing_list = listing_list.filter(bedrooms__lte=int(bedroom))  # 5<= 1, 2, 3, 4, 5
+
+    if 'price' in method_dict:
+        prices = method_dict['price']
+        listing_list = listing_list.filter(price__lte=int(prices))
+
     context = {
         'state_choices': state_choices,
         'bedroom_choices': bedroom_choices,
         'price_choices': price_choices,
         'method_dict': method_dict,
-
+        'listing_list': listing_list
     }
 
     return render(request, 'listings/search.html', context)

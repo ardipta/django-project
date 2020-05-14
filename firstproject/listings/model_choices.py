@@ -1,12 +1,12 @@
 state_choices = {
-    'dh': 'Dhaka',
-    'ch': 'Chittagong',
-    'rj': 'Rajshahi',
-    'kh': 'Khulna',
-    'br': 'Barishal',
-    'sy': 'Sylhet',
-    'ra': 'Rangpur',
-    'my': 'Mymensingh',
+    'Dhaka': 'Dhaka',
+    'Chittagong': 'Chittagong',
+    'Rajshahi': 'Rajshahi',
+    'Khulna': 'Khulna',
+    'Barishal': 'Barishal',
+    'Sylhet': 'Sylhet',
+    'Rangpur': 'Rangpur',
+    'Mymensingh': 'Mymensingh',
 }
 
 bedroom_choices = {
