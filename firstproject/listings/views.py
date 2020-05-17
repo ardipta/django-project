@@ -34,11 +34,13 @@ def listing(request, listing_id):
 
 
 def search(request):
+    listing_list = Listing.objects.all()
     method_dict = request.GET.copy()
     keywords = method_dict.get('keywords') or None
     city = method_dict.get('city') or None
-    print(keywords, city)
-    listing_list = Listing.objects.all()
+    sqft = method_dict.get('sqft') or None
+    page = request.GET.get('page', 1)
+    paginator = Paginator(listing_list, 3)
 
     if keywords is not None:
         keyword = method_dict['keywords']
@@ -48,6 +50,10 @@ def search(request):
     if city is not None:
         cities = method_dict['city']
         listing_list = listing_list.filter(city__iexact=cities)
+
+    if sqft is not None:
+        sqfts = method_dict['sqft']
+        listing_list = listing_list.filter(sqft__lte=int(sqfts))
 
     if 'state' in method_dict:
         states = method_dict['state']
@@ -60,6 +66,16 @@ def search(request):
     if 'price' in method_dict:
         prices = method_dict['price']
         listing_list = listing_list.filter(price__lte=int(prices))
+
+    try:
+        listing_list = paginator.page(page)
+
+    except PageNotAnInteger:
+        # fall back to first page
+        listing_list = paginator.page(1)
+    except EmptyPage:
+        # fall back to last page
+        listing_list = paginator.page(paginator.num_pages)
 
     context = {
         'state_choices': state_choices,

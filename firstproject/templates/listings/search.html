@@ -30,10 +30,10 @@
     </div>
   </section>
 
-  <!-- Listings -->
-  <section id="listings" class="py-4">
-    <div class="container">
-      <div class="row">
+<!-- Listings -->
+<section id="listings" class="py-4">
+<div class="container">
+<div class="row">
 <!-- Listing  -->
 {% if listing_list %}
   {% for listing in listing_list %}
@@ -83,7 +83,11 @@
   <h3 class="text-center">No List Available</h3>
 {% endif %}
 <!--End Listing-->
-      </div>
-    </div>
-  </section>
+</div>
+<!--Pagination-->
+<div class="row">
+  {% include 'pages/pagination.html' %}
+</div>
+</div>
+</section>
 {% endblock %}
