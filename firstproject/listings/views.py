@@ -1,7 +1,10 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from .models import Listing
+from .models import Listing, Inquiry
 from .model_choices import *
+from django.contrib import messages
+from django.urls import reverse
 
 
 #  listings app views
@@ -86,3 +89,17 @@ def search(request):
     }
 
     return render(request, 'listings/search.html', context)
+
+
+def listing_inquiry(request):
+    if request.method == 'POST':
+        get_method = request.POST.copy()
+        listing = get_method.get('listing')
+        phone = get_method.get('phone')
+        message = get_method.get('message')
+
+        listing_object = Listing.objects.get(title=listing)
+        Inquiry.object.create(listing=listing_object, user=request.user, phone=phone, message=message)
+
+        messages.success(request, 'Inquiry message sent successful')
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))

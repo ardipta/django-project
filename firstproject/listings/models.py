@@ -1,6 +1,7 @@
 from django.db import models
 
 from realtors.models import Realtor
+from django.contrib.auth.models import User
 
 
 class Listing(models.Model):
@@ -30,5 +31,22 @@ class Listing(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ('-list_date',)
 
 
+class Inquiry(models.Model):
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=150)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    update = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        ordering = ('-timestamp',)
+        verbose_name = 'Inquiry'
+        verbose_name_plural = 'Inquiries'

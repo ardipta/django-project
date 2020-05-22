@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Listing
+from .models import Listing, Inquiry
 
 
 class ListingAdmin(admin.ModelAdmin):
@@ -15,3 +15,13 @@ class ListingAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Listing, ListingAdmin)
+
+
+class InquiryAdmin(admin.ModelAdmin):
+    list_display = ['listing', 'user', 'phone']
+
+    class Meta:
+        model = Inquiry
+
+
+admin.site.register(Inquiry, InquiryAdmin)

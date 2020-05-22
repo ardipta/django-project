@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
+from listings.models import Listing
 
 
 # Create your views here.
@@ -53,7 +54,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request, 'Successfully Login!!!')
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('dashboard'))
         else:
             messages.error(request, 'Invalid Credentials!!')
             return HttpResponseRedirect(reverse('login'))
@@ -64,8 +65,15 @@ def login(request):
 
 
 def logout(request):
+    if request.method == "POST":
+        auth.logout(request)
+        messages.success(request, 'Logged out successful!')
     return HttpResponseRedirect(reverse('index'))
 
 
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+    listing_list = Listing.objects.all()
+    context = {
+        'listing_list': listing_list
+    }
+    return render(request, 'accounts/dashboard.html', context)
