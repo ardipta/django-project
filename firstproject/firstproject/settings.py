@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',  # rest framework app
 ]
 
 MIDDLEWARE = [
@@ -132,9 +133,8 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
 # Email
-EMAIL_HOST_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'ardipta82@gmail.com'
-EMAIL_HOST_PASSWORD = 'google.com82@'
-EMAIL_PORT = 587
-
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'  # for gmail
+EMAIL_HOST_USER = 'ardipta82@gmail.com'  # your mail
+EMAIL_HOST_PASSWORD = 'google.com82@'  # your password
+EMAIL_PORT = 587  # for gmail

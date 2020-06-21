@@ -8,6 +8,7 @@ urlpatterns = [
     path('listings/', include('listings.urls')),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
+    path('realtor-api/', include('realtors.urls'))
 ]
 
 if settings.DEBUG:

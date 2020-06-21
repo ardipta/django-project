@@ -93,13 +93,15 @@ def search(request):
 
 
 def listing_inquiry(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         get_method = request.POST.copy()
+        print(get_method)
         listing_info = get_method.get('listing')
         phone = get_method.get('phone')
         message = get_method.get('message')
 
         listing_object = Listing.objects.get(title=listing_info)
+
         inquiry_exist = Inquiry.objects.filter(listing=listing_object, user=request.user)
         if not inquiry_exist:
             Inquiry.objects.create(listing=listing_object, user=request.user, phone=phone, message=message)
@@ -107,11 +109,13 @@ def listing_inquiry(request):
             messages.success(request, 'Inquiry message sent successful! Our team will contact you soon through mail.')
         else:
             messages.error(request, 'You have already inquired!!')
+
         send_mail(
-            'Inquiry Listing from DJRE ',
-            'Thank you for contact with us. We will contact you soon. DJRE team',
+            'Inquiry Listing From DJRE',
+            'Thank you for contacting us. We Will contact you soon. DJRE Team.',
             settings.EMAIL_HOST_USER,
-            [request.user.email],
+            [request.user.email, settings.EMAIL_HOST_USER],
             fail_silently=False,
         )
+
         return HttpResponseRedirect(request.META.get("HTTP_REFERER"))

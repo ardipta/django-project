@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class Listing(models.Model):
     realtor = models.ForeignKey(Realtor, on_delete=models.CASCADE)
-    title = models.CharField(max_length=250)
+    title = models.CharField(max_length=250, unique=True)
     address = models.CharField(max_length=150)
     city = models.CharField(max_length=150)
     state = models.CharField(max_length=150)
