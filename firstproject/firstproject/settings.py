@@ -136,5 +136,5 @@ MESSAGE_TAGS = {
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'  # for gmail
 EMAIL_HOST_USER = 'ardipta82@gmail.com'  # your mail
-EMAIL_HOST_PASSWORD = 'google.com82@'  # your password
+EMAIL_HOST_PASSWORD = ''  # your password
 EMAIL_PORT = 587  # for gmail
